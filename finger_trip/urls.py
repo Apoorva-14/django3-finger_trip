@@ -29,7 +29,8 @@ urlpatterns = [
     path('login/', views.loginuser, name="loginuser"),
 
     #uploading
-    path('current/', views.currentuploads, name="currentuploads")
+    path('create/', views.createuploads, name="createuploads"),
+    path('current/', views.currentuploads, name="currentuploads"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
