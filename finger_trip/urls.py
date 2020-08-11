@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
     path('wall/', views.wall, name="wall"),
+    path('like/<int:trip_pk>', views.like_post, name="like_post"),
 
     #Auth
     path('signup/', views.signupuser, name="signupuser"),
