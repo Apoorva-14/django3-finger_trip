@@ -1,0 +1,25 @@
+{% extends 'trip/base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+    <h1 style="font-family:courier;"><u>Add a Post</u> 📌 </h1>
+  </div>
+</div>
+<div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+  <form method="POST">
+      {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+  </div>
+</div>
+
+{% endblock %}

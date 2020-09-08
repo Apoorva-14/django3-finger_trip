@@ -1,0 +1,34 @@
+{% extends 'trip/base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+    <h1 style="font-family:courier;"><u>WALL</u></h1>
+  <div>
+</div>
+
+
+{% for trip in trips %}
+  <h2>{{ trip.title }}</h2>
+  user- <b>{{ trip.user }}</b>
+  <p>{{ trip.description }}</p>
+  <img src="{{ trip.image.url }}" width="300" height="300">
+  <p>{{trip.created|date:'M d Y'|upper}}</p>
+
+  <form action="{% url 'like_post' %}" method="POST">
+    {% csrf_token %}
+    <input type='hidden' name='trip_id' value="{{ trip.id }}">
+    {% if liker not in trip.likes.all %}
+      <button class="ui button positive" type='submit' style="background-color:LightGreen">Like</button>
+    {% else %}
+      <button class="ui button negative" type='submit'style="background-color:Red">Unlike</button>
+    {% endif %}
+  </form>
+  <strong>{{ trip.likes.all.count }} -likes</strong>
+
+  <br><br>
+  
+{% endfor %}
+
+{% endblock %}

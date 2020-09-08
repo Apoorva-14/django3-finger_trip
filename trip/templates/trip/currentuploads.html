@@ -1,0 +1,23 @@
+{% extends 'trip/base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-10">
+    <h1 style="font-family:courier;"><u>Current Uploads</u> ✅</h1>
+  </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-10">
+    <div class="list-group">
+      {% for trip in trips %}
+      <a href="{% url 'viewtrip' trip.id %}"  class="list-group-item">
+      {{ trip.title }} - {{ trip.description|striptags|truncatechars:50 }}...
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
