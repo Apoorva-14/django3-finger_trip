@@ -3,9 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
-from .forms import TripForm
+from .forms import TripForm, CommentForm
 #addition- importing Like model
-from .models import Trip, Like
+from .models import Trip, Like, Comment
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -57,6 +57,22 @@ def like_post(request):
         like.save()
     return redirect('wall')
 
+
+@login_required
+def trip_detail(request,trip_id):
+    trip = get_object_or_404(Trip, pk=trip_id)
+    if request.method == "GET":
+        return render(request, 'trip/trip_detail.html', {'form':CommentForm(),'trip':trip})
+    else:
+        try:
+            form = CommentForm(request.POST)
+            newcomment = form.save(commit=False)
+            newcomment.user = request.user
+            newcomment.save()
+
+            return redirect('wall')
+        except IntegrityError:
+            return render(request, 'trip/trip_detail.html', {'form':CommentForm(), 'error':'Bad data passed in, Try again','trip':trip})
 
 
 #Authentication

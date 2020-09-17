@@ -24,18 +24,23 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('about/', views.about, name="about"),
     path('wall/', views.wall, name="wall"),
-    path('like/', views.like_post, name="like_post"),
+    path('wall/trip/<int:trip_id>', views.trip_detail, name="trip_detail"),
 
-    #Auth
-    path('signup/', views.signupuser, name="signupuser"),
-    path('logout/', views.logoutuser, name="logoutuser"),
-    path('login/', views.loginuser, name="loginuser"),
+    #Like and comment
+    path('like/', views.like_post, name="like_post"),
 
     #uploading
     path('create/', views.createuploads, name="createuploads"),
     path('current/', views.currentuploads, name="currentuploads"),
     path('trip/<int:trip_pk>', views.viewtrip , name="viewtrip"),
     path('trip/<int:trip_pk>/delete', views.deletetrip, name="deletetrip"),
+
+    #Auth
+    path('signup/', views.signupuser, name="signupuser"),
+    path('logout/', views.logoutuser, name="logoutuser"),
+    path('login/', views.loginuser, name="loginuser"),
+
 ]
 
+#adding MEDIA_URL and MEDIA_ROOT
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

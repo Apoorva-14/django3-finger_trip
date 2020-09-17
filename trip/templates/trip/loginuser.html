@@ -3,14 +3,28 @@
 {% block content %}
 
 
-<h1>Login</h1>
+<center>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <h2 style="font-family:courier;background-color:LIGHTBLUE">Hey! Welcome Back</h2>
+    </div>
+</div>
 
-<h2>{{ error }}</h2>
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+      {% if error %}
+          <div class="alert alert-danger" role="alert">
+              {{ error }}
+          </div>
+      {% endif %}
 
-<form method="POST">
-  {% csrf_token %}
-{{ form.as_p }}
-<button type="submit">Login</button>
-</form>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit"class="btn btn-info">Login</button>
+    </form>
+  </div>
+</div>
+</center>
 
 {% endblock %}

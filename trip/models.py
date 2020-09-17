@@ -11,6 +11,7 @@ class Trip(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     likes = models.ManyToManyField(User, related_name='trip_post' ,blank=True, default=None)
 
+
     def __str__(self):
         return self.title
 
@@ -32,3 +33,13 @@ class Like(models.Model):
     liker = models.ForeignKey(User, on_delete=models.CASCADE)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     value = models.CharField(choices=LIKE_CHOICES , default='Like', max_length=10)
+
+
+class Comment(models.Model):
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='comments')
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment_text = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.comment_text
