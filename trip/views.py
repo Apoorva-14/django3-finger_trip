@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from .forms import TripForm, CommentForm
-from .models import Trip, Like, Comment
+from .models import Trip, Like, Comment, Contact
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -19,6 +20,18 @@ def about(request):
 
 #Contact
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        content = request.POST['content']
+
+        if len(name)<2 or len(email)<10 or len(phone)<10 or len(content)<4:
+            messages.error(request, 'Please fill the form correctly ⚠️')
+        else:
+            contact = Contact(name=name, email=email, phone=phone, content=content)
+            contact.save()
+            messages.success(request, 'Your message has been successfully sent 📨')
     return render(request, 'trip/contact.html')
 
 #Wall
