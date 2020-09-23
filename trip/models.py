@@ -8,8 +8,9 @@ class Contact(models.Model):
     phone = models.CharField(max_length=13)
     email = models.CharField(max_length=100)
     content = models.TextField()
+    timeStamp = models.DateTimeField(auto_now_add=True, blank=True)
 
-    
+
 class Trip(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=1000, blank=True)
