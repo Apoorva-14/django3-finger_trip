@@ -55,7 +55,7 @@ ROOT_URLCONF = 'finger_trip.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [r'/Users/apoorvasharma/Desktop/dev-projects/finger_trip_project/trip/templates/trip'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

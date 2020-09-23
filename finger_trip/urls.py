@@ -19,15 +19,22 @@ from trip import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+admin.site.site_header = "Finger Trip Admin"
+admin.site.site_title = "Finger Trip Admin Panel"
+admin.site.index_title = "Welcome to Finger Trip Admin Panel!"
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
     path('about/', views.about, name="about"),
+    path('contact/', views.contact, name="contact"),
     path('wall/', views.wall, name="wall"),
-    path('wall/trip/<int:trip_id>', views.trip_detail, name="trip_detail"),
+    path('wall/<str:slug>', views.trip_detail, name="trip_detail"),
 
     #Like and comment
     path('like/', views.like_post, name="like_post"),
+    #path('wall/trip/<int:trip_id>/comment', views.comment_post, name="comment_post"),
 
     #uploading
     path('create/', views.createuploads, name="createuploads"),

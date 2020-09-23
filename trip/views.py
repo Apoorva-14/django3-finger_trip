@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from .forms import TripForm, CommentForm
-#addition- importing Like model
 from .models import Trip, Like, Comment
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -18,13 +17,15 @@ def home(request):
 def about(request):
     return render(request, 'trip/about.html')
 
+#Contact
+def contact(request):
+    return render(request, 'trip/contact.html')
+
 #Wall
 @login_required
 def wall(request):
     trips = Trip.objects.order_by('-updated')
-    #add
     liker = request.user
-    #ADDITION
 
     context = {
         'trips' : trips,
@@ -73,6 +74,11 @@ def trip_detail(request,trip_id):
             return redirect('wall')
         except IntegrityError:
             return render(request, 'trip/trip_detail.html', {'form':CommentForm(), 'error':'Bad data passed in, Try again','trip':trip})
+
+
+@login_required
+def comment_post(request):
+    return redirect('wall')
 
 
 #Authentication

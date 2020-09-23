@@ -14,19 +14,19 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-light bg-warning">
-<div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}">
-         <img src="{% static 'trip/smile.png' %}" width="40" height="35" class="d-inline-block align-top"-->
-        <span>Finger Trip</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+  <nav class="navbar navbar-expand-md navbar-dark bg-info ">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">
+           <img src="{% static 'trip/smile.png' %}" width="40" height="35" class="d-inline-block align-top"-->
+          <span>Finger Trip</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
     <div class="collapse navbar-collapse" id="navbarNav">
+
     {% if user.is_authenticated %}
         <ul class="navbar-nav mr-auto">
-
                 <li class="nav-item {{ create }}">
                     <a class="nav-link" href="{% url 'createuploads' %}">Create</a>
                 </li>
@@ -36,7 +36,6 @@
                 <li class="nav-item {{ wall }}">
                     <a class="nav-link" href="{% url 'wall' %}">Wall</a>
                 </li>
-
         </ul>
     {% endif %}
 
@@ -59,11 +58,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">📞</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>
     </div>
     </nav>
+    <hr>
 
     <div class="container">
     {% block content %}{% endblock %}

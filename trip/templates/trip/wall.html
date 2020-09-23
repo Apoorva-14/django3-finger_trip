@@ -1,71 +1,90 @@
 {% extends 'trip/base.html' %}
 
 {% block content %}
-<Style type='text/css' >body{background-color:rgb(0,0,0);background-image:url(https://www.commentnation.com/hotlinks/white_paper_texture_background_seamless_pattern.jpg);background-position:top left;background-repeat:repeat;background-attachment:fixed;}</Style>
-<center>
-<div class="row justify-content-center mt-5">
-  <div class="col-md-5">
-    <h1 style="font-family:courier;background-color:LIGHTBLUE">WALL</h1>
-  <div>
-</div>
-<br>
+  <Style type='text/css' >body{background-color:rgb(0,0,0);background-image:url(https://www.commentnation.com/hotlinks/white_paper_texture_background_seamless_pattern.jpg);background-position:top left;background-repeat:repeat;background-attachment:fixed;}</Style>
+  <center>
+    <title>
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+          <h1 style="font-family:courier;background-color:LIGHTBLUE">WALL</h1>
+        <div>
+      </div>
+    </title>
 
-  {% for trip in trips %}
-    <h4 class="text-uppercase" style="font-family:Georgia;background-color:White">{{ trip.title }}</h4>
-    <hr><h5 style="font-family:Cursive;">{{ trip.description }}</h5><hr>
-    <span class="border">
-      <img src="{{ trip.image.url }}" width="400" height="400" class="rounded-sm">
-    <span>
-    <p>posted by- <b style="color:blue;font-family:Cursive">{{ trip.user }}</b>
-      | <small style="font-family:Georgia">{{trip.created|date:'M, Y '|upper}}</small>
-    </p>
-
-  <form action="{% url 'like_post' %}" method="POST">
-    {% csrf_token %}
-    <input type='hidden' name='trip_id' value="{{ trip.id }}">
-    {% if liker not in trip.likes.all %}
-      <button class="ui button positive" type='submit' style="background-color:white">❤️</button>
-    {% else %}
-      <button class="ui button negative" type='submit'style="background-color:white">🤍</button>
-    {% endif %}
-    <strong>
-      {% if trip.likes.all.count == 1  %}
-        {{ trip.likes.all.count }} -like
-      {% else %}
-        {{ trip.likes.all.count }} -likes
-      {% endif %}
-    </strong>
-  </form>
-
-  <hr>
-  <h6 class="font-weight-bold" style="font-family:Georgia;">Comments...</h6>
-  {% if not trip.comments.all %}
-    <p style="font-family:cursive;"">
-      No Comments Yet...
-      <a href= "{% url 'trip_detail' trip.id %}">
-        Add One
-      </a></p>
-  {% else %}
-    {% for comment in trip.comments.all %}
-      <small style="font-family:cursive;color:blue;">
-        {{ comment.commenter }}-
-      </small>
-      <small style="font-family:georgia;">
-        {{ comment.comment_text }}
-      </small>
-        <br>
-    {% endfor %}
-    <a href="{% url 'trip_detail' trip.id %}" style="font-family:cursive;">
-      Add a comment
-    </a>
-  {% endif %}
-  <hr>
-  <p>-------------------------------------------------------------</p>
     <br>
+    
+    <body>
+        {% for trip in trips %}
+          <h4 class="text-uppercase" style="font-family:Georgia;background-color:White">
+            {{ trip.title }}
+          </h4>
+          <hr>
+          <h5 style="font-family:Cursive;">
+            {{ trip.description }}
+          </h5>
+          <hr>
+          <span class="border">
+            <img src="{{ trip.image.url }}" width="400" height="400" class="rounded-sm">
+          <span>
+          <p>posted by-
+            <b style="color:blue;font-family:Cursive">
+              {{ trip.user }}
+            </b>
+            | <small style="font-family:Georgia">
+              {{trip.created|date:'M, Y '|upper}}
+            </small>
+          </p>
 
+        <form action="{% url 'like_post' %}" method="POST">
+          {% csrf_token %}
+          <input type='hidden' name='trip_id' value="{{ trip.id }}">
+          {% if liker not in trip.likes.all %}
+            <button class="ui button positive" type='submit' style="background-color:white">
+              ❤️
+            </button>
+          {% else %}
+            <button class="ui button negative" type='submit'style="background-color:white">
+              🤍
+            </button>
+          {% endif %}
+          <strong>
+            {% if trip.likes.all.count == 1  %}
+              {{ trip.likes.all.count }} -like
+            {% else %}
+              {{ trip.likes.all.count }} -likes
+            {% endif %}
+          </strong>
+        </form>
 
-{% endfor %}
-
-
-</center>
+        <hr>
+        <h6 class="font-weight-bold" style="font-family:Georgia;">
+          Comments...
+        </h6>
+        {% if not trip.comments.all %}
+          <p style="font-family:cursive;"">
+            No Comments Yet...
+            <a href= "{% url 'trip_detail' trip.id %}">
+              Add One
+            </a>
+          </p>
+        {% else %}
+          {% for comment in trip.comments.all %}
+            <small style="font-family:cursive;color:blue;">
+              {{ comment.commenter }}-
+            </small>
+            <small style="font-family:georgia;">
+              {{ comment.comment_text }}
+            </small>
+            <br>
+          {% endfor %}
+          <a href="{% url 'trip_detail' trip.id %}" style="font-family:cursive;">
+            Add a comment
+          </a>
+        {% endif %}
+        <hr>
+        <p>-------------------------------------------------------------</p>
+          <br>
+      {% endfor %}
+    </body>
+  </center>
 {% endblock %}
