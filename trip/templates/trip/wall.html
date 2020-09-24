@@ -1,5 +1,7 @@
 {% extends 'trip/base.html' %}
 
+{% block wallactive %} active {% endblock wallactive %}
+
 {% block content %}
   <Style type='text/css' >body{background-color:rgb(0,0,0);background-image:url(https://www.commentnation.com/hotlinks/white_paper_texture_background_seamless_pattern.jpg);background-position:top left;background-repeat:repeat;background-attachment:fixed;}</Style>
   <center>
@@ -12,7 +14,7 @@
     </title>
 
     <br>
-    
+
     <body>
         {% for trip in trips %}
           <h4 class="text-uppercase" style="font-family:Georgia;background-color:White">

@@ -27,13 +27,13 @@
 
     {% if user.is_authenticated %}
         <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ create }}">
+                <li class="nav-item {{ create }} {% block createuploadsactive %} {% endblock createuploadsactive %}">
                     <a class="nav-link" href="{% url 'createuploads' %}">Create</a>
                 </li>
-                <li class="nav-item {{ current }}">
+                <li class="nav-item {{ current }} {% block currentuploadsactive %} {% endblock currentuploadsactive %}">
                     <a class="nav-link" href="{% url 'currentuploads' %}">Current</a>
                 </li>
-                <li class="nav-item {{ wall }}">
+                <li class="nav-item {{ wall }} {% block wallactive %} {% endblock wallactive %}">
                     <a class="nav-link" href="{% url 'wall' %}">Wall</a>
                 </li>
         </ul>
@@ -41,7 +41,7 @@
 
     <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                  <li class="nav-item">
+                  <li class="nav-item {% block logoutuseractive %} {% endblock logoutuseractive %}">
                         <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logged in as {{ user.username }} | Logout</a>
                         <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
                             {% csrf_token %}
@@ -49,16 +49,16 @@
                         </form>
                     </li>
                 {% else %}
-                    <li class="nav-item">
+                    <li class="nav-item {% block signupuseractive %} {% endblock signupuseractive %}" >
                         <a class="nav-link" href="{% url 'signupuser' %}">Sign Up</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% block loginuseractive %} {% endblock loginuseractive %}">
                         <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% block aboutactive %} {% endblock aboutactive %}">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% block contactactive %} {% endblock contactactive %}">
                         <a class="nav-link" href="{% url 'contact' %}">📞</a>
                     </li>
                 {% endif %}
