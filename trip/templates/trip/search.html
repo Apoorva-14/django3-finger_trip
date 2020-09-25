@@ -13,6 +13,22 @@
     <br>
 
     <body>
+      {% if allTrips|length < 1 %}
+      <div class="card" style="width: 35rem;"><br>
+        <h3 class="card-title" style="font-family:Georgia;background-color:LIGHTBLUE;">No search results..😪</h3>
+        <h6 class="card-text" style="font-family:Georgia;">Your search - <b>{{ search }}</b>- did not match any posts. </h6>
+        <div class="card-body">
+          <ul style="text-align:left;font-family:Georgia;"><b>Suggestions:</b>
+            <ul>
+              <li>Make sure that all words are spelled correctly.</li>
+              <li>Try different keywords.</li>
+              <li>Try more general keywords.</li>
+              <li>Try fewer keywords.</li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
       {% for trip in allTrips %}
       <div class="card" style="width: 35rem;"><br>
         <h3 class="card-title" style="font-family:Georgia;background-color:LIGHTBLUE;">{{ trip.title }}</h3>

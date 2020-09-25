@@ -21,8 +21,18 @@ def about(request):
 #Search
 def search(request):
     search = request.GET['search']
-    allTrips = Trip.objects.filter(title__icontains=search)
-    params = {'allTrips': allTrips}
+    if len(search)>100:
+        #If length of  search query is greater than 100 it will return none in http HttpResponse
+        allTrips = Trip.objects.none()
+    else:
+        allTripsTitle = Trip.objects.filter(title__icontains=search)
+        allTripsDesc = Trip.objects.filter(description__icontains=search)
+        allTrips = allTripsTitle.union(allTripsDesc)
+
+    if allTrips.count() == 0:
+        messages.error(request, 'No search results found. Please refine your query.')
+
+    params = {'allTrips': allTrips, 'search':search}
     return render(request, 'trip/search.html', params)
 
 #Contact
