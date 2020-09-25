@@ -17,8 +17,8 @@
     <body>
       {% for trip in trips %}
       <div class="card" style="width: 35rem;"><br>
-        <h5 class="card-title">{{ trip.title }}</h5>
-        <p class="card-text">{{ trip.description }}</p><hr>
+        <h3 class="card-title" style="font-family:Georgia;background-color:LIGHTBLUE;">{{ trip.title }}</h3>
+        <p class="card-text" style="font-family:Georgia;">{{ trip.description }}</p>
         <img src="{{ trip.image.url }}" class="card-img-top" alt="...">
         <div class="card-body">
           <b style="color:blue;font-family:Cursive;color:LIGHTBLUE">{{ trip.user }}</b>

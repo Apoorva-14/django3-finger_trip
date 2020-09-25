@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -17,6 +17,10 @@ def home(request):
 #About
 def about(request):
     return render(request, 'trip/about.html')
+
+#Search
+def search(request):
+    return HttpResponse('This is search')
 
 #Contact
 def contact(request):
@@ -75,18 +79,9 @@ def like_post(request):
 @login_required
 def trip_detail(request,trip_id):
     trip = get_object_or_404(Trip, pk=trip_id)
-    if request.method == "GET":
-        return render(request, 'trip/trip_detail.html', {'form':CommentForm(),'trip':trip})
-    else:
-        try:
-            form = CommentForm(request.POST)
-            newcomment = form.save(commit=False)
-            newcomment.user = request.user
-            newcomment.save()
+    context = {'trip': trip}
+    return render(request, 'trip/trip_detail.html', context)
 
-            return redirect('wall')
-        except IntegrityError:
-            return render(request, 'trip/trip_detail.html', {'form':CommentForm(), 'error':'Bad data passed in, Try again','trip':trip})
 
 
 @login_required

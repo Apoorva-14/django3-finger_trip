@@ -2,37 +2,50 @@
 
 {% block content %}
 
-<head>
-<Style type='text/css' >body{background-color:rgb(0,0,0);background-image:url(https://www.commentnation.com/hotlinks/white_marbled_paper_background_texture_seamless.jpg);background-position:top left;background-repeat:repeat;background-attachment:fixed;}</Style>
-</head>
-<body>
-  <center>
-<br>
+<center>
+<h2 style="font-family:Georgia;background-color:LIGHTBLUE;color:white;">
+  Here!! It is. 🤘
+</h2>
 <hr>
-    <h4 class="text-uppercase" style="font-family:Georgia;background-color:White">{{ trip.title }}</h4>
-    <hr><h5 style="font-family:Cursive;">{{ trip.description }}</h5><hr>
-    <span class="border">
-      <img src="{{ trip.image.url }}" width="400" height="400" class="rounded-sm">
-    <span>
-    <p>posted by- <b style="color:blue;font-family:Cursive">{{ trip.user }}</b>
-      | <small style="font-family:Georgia">{{trip.created|date:'M, Y '|upper}}</small>
-    </p>
-    <div class="row justify-content-center mt-5">
-            <div class="col-md-5">
-                {% if error %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ error }}
-                    </div>
-                {% endif %}
-      <form method="POST" enctype="multipart/form-data">
+
+<body>
+
+    <div class="card" style="width: 35rem;"><br>
+      <h3 class="card-title" style="font-family:Georgia;background-color:LIGHTBLUE;">{{ trip.title }}</h3>
+      <p class="card-text" style="font-family:Georgia;">{{ trip.description }}</p>
+      <img src="{{ trip.image.url }}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <b style="color:blue;font-family:Cursive;color:LIGHTBLUE">{{ trip.user }}</b>
+        | <small style="font-family:Georgia">{{trip.created|date:'M, Y '|upper}}</small>
+
+        <br>
+
+        <form action="{% url 'like_post' %}" method="POST">
           {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Comment</button>
-      </form>
+          <input type='hidden' name='trip_id' value="{{ trip.id }}">
+          {% if liker not in trip.likes.all %}
+            <button class="ui button positive" type='submit' style="background-color:white">
+              ❤️
+            </button>
+          {% else %}
+            <button class="ui button negative" type='submit'style="background-color:white">
+              🤍
+            </button>
+          {% endif %}
+          <strong>
+            {% if trip.likes.all.count == 1  %}
+              {{ trip.likes.all.count }} -like
+            {% else %}
+              {{ trip.likes.all.count }} -likes
+            {% endif %}
+          </strong>
+        </form>
       </div>
     </div>
-  </center>
-</body>
 
+  <br>
+  <br>
+</body>
+</center>
 
 {% endblock %}

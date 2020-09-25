@@ -28,9 +28,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
     path('about/', views.about, name="about"),
+    path('search/', views.search, name="search"),
     path('contact/', views.contact, name="contact"),
     path('wall/', views.wall, name="wall"),
-    path('wall/<str:slug>', views.trip_detail, name="trip_detail"),
+    path('wall/<int:trip_id>', views.trip_detail, name="trip_detail"),
 
     #Like and comment
     path('like/', views.like_post, name="like_post"),

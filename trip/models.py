@@ -22,7 +22,7 @@ class Trip(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     likes = models.ManyToManyField(User, related_name='trip_post' ,blank=True, default=None)
-    slug = models.CharField(max_length=100)
+    slug = models.CharField(max_length=130)
 
 
     def __str__(self):

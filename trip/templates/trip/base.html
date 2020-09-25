@@ -17,69 +17,77 @@
   <nav class="navbar navbar-expand-md navbar-dark bg-info ">
     <div class="container">
       <a class="navbar-brand" href="{% url 'home' %}">
-           <img src="{% static 'trip/f-logo.png' %}" width="40" height="40" class="d-inline-block align-middle"-->
-          <span style="font-family:Georgia;">Finger Trip</span>
+        <img src="{% static 'trip/f-logo.png' %}" width="40" height="40" class="d-inline-block align-middle"-->
+        <span style="font-family:Georgia;">Finger Trip</span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
 
-    {% if user.is_authenticated %}
-        <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ create }} {% block createuploadsactive %} {% endblock createuploadsactive %}" style="font-family:Georgia;">
-                    <a class="nav-link" href="{% url 'createuploads' %}">Create</a>
-                </li>
-                <li class="nav-item {{ current }} {% block currentuploadsactive %} {% endblock currentuploadsactive %}" style="font-family:Georgia;">
-                    <a class="nav-link" href="{% url 'currentuploads' %}">Current</a>
-                </li>
-                <li class="nav-item {{ wall }} {% block wallactive %} {% endblock wallactive %}" style="font-family:Georgia;">
-                    <a class="nav-link" href="{% url 'wall' %}">Wall</a>
-                </li>
-        </ul>
-    {% endif %}
-
-    <ul class="navbar-nav ml-auto">
-                {% if user.is_authenticated %}
-                  <li class="nav-item {% block logoutuseractive %} {% endblock logoutuseractive %}">
-                        <a href="#" onclick="$('#signOutBtn').click()" class="nav-link" style="font-family:Georgia;">Logged in as {{ user.username }} | Logout</a>
-                        <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
-                            {% csrf_token %}
-                            <button id="signOutBtn" type="submit">Logout</button>
-                        </form>
-                    </li>
-                {% else %}
-                    <li class="nav-item {% block signupuseractive %} {% endblock signupuseractive %}" style="font-family:Georgia;" >
-                        <a class="nav-link" href="{% url 'signupuser' %}">Sign Up</a>
-                    </li>
-                    <li class="nav-item {% block loginuseractive %} {% endblock loginuseractive %}" style="font-family:Georgia;">
-                        <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
-                    </li>
-                    <li class="nav-item {% block aboutactive %} {% endblock aboutactive %}" style="font-family:Georgia;">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
-                    </li>
-                    <li class="nav-item {% block contactactive %} {% endblock contactactive %}">
-                        <a class="nav-link" href="{% url 'contact' %}">📞</a>
-                    </li>
-                {% endif %}
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <form  method="GET" action="/search" class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Type here..." aria-label="Search" name="search" id="search">
+          <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        {% if user.is_authenticated %}
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item {{ create }} {% block createuploadsactive %} {% endblock createuploadsactive %}" style="font-family:Georgia;">
+                <a class="nav-link" href="{% url 'createuploads' %}">Create</a>
+              </li>
+              <li class="nav-item {{ current }} {% block currentuploadsactive %} {% endblock currentuploadsactive %}" style="font-family:Georgia;">
+                <a class="nav-link" href="{% url 'currentuploads' %}">Current</a>
+              </li>
+              <li class="nav-item {{ wall }} {% block wallactive %} {% endblock wallactive %}" style="font-family:Georgia;">
+                <a class="nav-link" href="{% url 'wall' %}">Wall</a>
+              </li>
             </ul>
-        </div>
+        {% endif %}
+        <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item {% block logoutuseractive %} {% endblock logoutuseractive %}">
+              <a href="#" onclick="$('#signOutBtn').click()" class="nav-link" style="font-family:Georgia;">Logged in as {{ user.username }} | Logout</a>
+                <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+                                {% csrf_token %}
+                                <button id="signOutBtn" type="submit">Logout</button>
+                            </form>
+            </li>
+          {% else %}
+            <li class="nav-item {% block signupuseractive %} {% endblock signupuseractive %}" style="font-family:Georgia;" >
+              <a class="nav-link" href="{% url 'signupuser' %}">Sign Up</a>
+            </li>
+            <li class="nav-item {% block loginuseractive %} {% endblock loginuseractive %}" style="font-family:Georgia;">
+              <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
+            </li>
+            <li class="nav-item {% block aboutactive %} {% endblock aboutactive %}" style="font-family:Georgia;">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            <li class="nav-item {% block contactactive %} {% endblock contactactive %}">
+              <a class="nav-link" href="{% url 'contact' %}">📞</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
     </div>
-    </nav>
-    <hr>
-    <div class="container">
-    {% for message in messages %}
+  </nav>
+</body>
+
+<hr>
+
+<div class="container">
+  {% for message in messages %}
     <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
       <strong>Message:</strong> {{ message }}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">
+        <span aria-hidden="true">
         &times;
-      </span>
+        </span>
       </button>
     </div>
-    {% endfor %}
-    {% block content %}{% endblock %}
-    </div>
+  {% endfor %}
+</div>
+
+{% block content %}{% endblock %}
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
