@@ -20,7 +20,10 @@ def about(request):
 
 #Search
 def search(request):
-    return HttpResponse('This is search')
+    search = request.GET['search']
+    allTrips = Trip.objects.filter(title__icontains=search)
+    params = {'allTrips': allTrips}
+    return render(request, 'trip/search.html', params)
 
 #Contact
 def contact(request):

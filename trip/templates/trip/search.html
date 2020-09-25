@@ -6,14 +6,14 @@
   <center>
       <div class="row justify-content-center mt-5">
         <div class="col-md-5">
-          <h1 style="font-family:courier;background-color:LIGHTBLUE">WALL</h1>
+          <h1 style="font-family:courier;">Search Results:</h1>
         <div>
       </div>
 
     <br>
 
     <body>
-      {% for trip in trips %}
+      {% for trip in allTrips %}
       <div class="card" style="width: 35rem;"><br>
         <h3 class="card-title" style="font-family:Georgia;background-color:LIGHTBLUE;">{{ trip.title }}</h3>
         <p class="card-text" style="font-family:Georgia;">{{ trip.description }}</p>
@@ -72,7 +72,7 @@
           <hr>
           <br>
         </div>
-        {% endfor %}
+      {% endfor %}
       </div>
     </body>
 

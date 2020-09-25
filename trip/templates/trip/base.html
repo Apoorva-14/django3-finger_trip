@@ -25,11 +25,12 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNav">
-        <form  method="GET" action="/search" class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Type here..." aria-label="Search" name="search" id="search">
-          <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
         {% if user.is_authenticated %}
+          <form  method="GET" action="/search" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Type here..." aria-label="Search" name="search" id="search">
+            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+          </form>
             <ul class="navbar-nav mr-auto">
               <li class="nav-item {{ create }} {% block createuploadsactive %} {% endblock createuploadsactive %}" style="font-family:Georgia;">
                 <a class="nav-link" href="{% url 'createuploads' %}">Create</a>
@@ -45,7 +46,7 @@
         <ul class="navbar-nav ml-auto">
           {% if user.is_authenticated %}
             <li class="nav-item {% block logoutuseractive %} {% endblock logoutuseractive %}">
-              <a href="#" onclick="$('#signOutBtn').click()" class="nav-link" style="font-family:Georgia;">Logged in as {{ user.username }} | Logout</a>
+              <a href="#" onclick="$('#signOutBtn').click()" class="nav-link" style="font-family:Georgia;"> {{ user.username }} | Logout</a>
                 <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
                                 {% csrf_token %}
                                 <button id="signOutBtn" type="submit">Logout</button>
