@@ -35,7 +35,7 @@ urlpatterns = [
 
     #Like and comment
     path('like/', views.like_post, name="like_post"),
-    #path('wall/trip/<int:trip_id>/comment', views.comment_post, name="comment_post"),
+    path('wall/comment_post/', views.comment_post, name="comment_post"),
 
     #uploading
     path('create/', views.createuploads, name="createuploads"),

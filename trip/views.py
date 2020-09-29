@@ -92,13 +92,22 @@ def like_post(request):
 @login_required
 def trip_detail(request,trip_id):
     trip = get_object_or_404(Trip, pk=trip_id)
-    context = {'trip': trip}
+    liker = request.user
+    comments = Comment.objects.filter(trip=trip)
+    context = {'trip': trip, 'liker': liker, 'comments': comments}
     return render(request, 'trip/trip_detail.html', context)
-
 
 
 @login_required
 def comment_post(request):
+    if request.method == 'POST':
+        trip_id = request.POST.get('trip_id')
+        comment_text = request.POST.get("comment_text")
+        commenter = request.user
+
+        comment = Comment(trip_id=trip_id, commenter=commenter, comment_text="comment_text" )
+        comment.save()
+
     return redirect('wall')
 
 
